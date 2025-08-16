@@ -1,0 +1,92 @@
+<h1 class="page-title">Income Management</h1>
+
+<div class="income-overview glass">
+    <h2 class="section-title">Income Overview</h2>
+    <div class="income-stats-grid">
+        <div class="income-stat-card">
+            <div class="stat-label">Total Income</div>
+            <div class="stat-value" id="total-income-value">$0.00</div>
+        </div>
+        <div class="income-stat-card">
+            <div class="stat-label">This Month</div>
+            <div class="stat-value" id="monthly-income-value">$0.00</div>
+        </div>
+        <div class="income-stat-card">
+            <div class="stat-label">Income Sources</div>
+            <div class="stat-value" id="income-sources-count">0</div>
+        </div>
+    </div>
+</div>
+
+<div class="income-section glass">
+    <h2 class="section-title">Add New Income</h2>
+    <div class="add-income-form">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="income-date">Date</label>
+                <input type="date" id="income-date" required>
+            </div>
+            <div class="form-group">
+                <label for="income-source">Source</label>
+                <input type="text" id="income-source" placeholder="e.g., Salary, Freelance" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="income-main-category">Main Category</label>
+                <select id="income-main-category" required>
+                    <option value="">Select Category</option>
+                    <option value="Needs">Needs (Essential Income)</option>
+                    <option value="Wants">Wants (Discretionary Income)</option>
+                    <option value="Savings & Debt">Savings & Debt (Investment/Debt Income)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="income-sub-category">Sub-Category</label>
+                <input type="text" id="income-sub-category" placeholder="e.g., Primary Job, Side Hustle">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="income-description">Description</label>
+            <input type="text" id="income-description" placeholder="Additional details about this income">
+        </div>
+        <div class="form-group">
+            <label for="income-amount">Amount</label>
+            <input type="number" step="0.01" id="income-amount" placeholder="0.00" required>
+        </div>
+        <button type="button" class="btn btn-primary btn-add" onclick="addIncomeFromForm()">Add Income</button>
+    </div>
+</div>
+
+<div class="income-section glass">
+    <h2 class="section-title">Income History</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Source</th>
+                    <th>Main Category</th>
+                    <th>Sub-Category</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="income-table">
+                <!-- Populated by JavaScript -->
+            </tbody>
+            <tfoot id="income-table-foot">
+                <!-- Populated by JavaScript -->
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="income-section glass">
+    <h2 class="section-title">Data Management</h2>
+    <div class="data-management-buttons">
+        <button class="btn btn-warning" onclick="exportIncomeData()">Export Income Data</button>
+        <button class="btn btn-danger" onclick="clearDataSection('income')">Clear All Income Data</button>
+    </div>
+</div>

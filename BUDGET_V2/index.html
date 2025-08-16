@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Finance Tracker - Liquid Glass V2</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="login-screen">
+        <form id="login-form" class="glass" onsubmit="handleLogin(event)">
+            <h1 class="page-title" style="font-size: 2rem;">Finance Tracker</h1>
+            <p style="margin-bottom: 20px; color: var(--text-secondary);">Please enter your password to continue.</p>
+            <input type="password" id="password-input" placeholder="Password" required>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+            <div id="login-error"></div>
+        </form>
+    </div>
+
+    <div class="container">
+        <nav class="navbar glass">
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active" data-page="dashboard">Dashboard</a></li>
+                <li><a href="#" class="nav-link" data-page="income">Income</a></li>
+                <li><a href="#" class="nav-link" data-page="fixed-expenses">Fixed Expenses</a></li>
+                <li><a href="#" class="nav-link" data-page="goals">Goals</a></li>
+                <li><a href="#" class="nav-link" data-page="hidden">Hidden Items</a></li>
+                <li><a href="#" class="nav-link" data-page="insights">Insights</a></li>
+                <li><a href="#" class="nav-link" data-page="settings">Settings</a></li>
+                <li><a href="#" class="nav-link logout-btn" onclick="logout()">Logout</a></li>
+            </ul>
+        </nav>
+
+        <main id="page-content"></main>
+    </div>
+
+    <div id="income-modal" class="modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2 class="modal-title">Add Income</h2>
+                <button class="close" onclick="closeModal('income-modal')">&times;</button>
+            </div>
+            <form onsubmit="addIncome(event)">
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="income-date" required>
+                </div>
+                <div class="form-group">
+                    <label>Source</label>
+                    <input type="text" id="income-source" required>
+                </div>
+                <div class="form-group">
+                    <label>Main Category</label>
+                    <select id="income-main-category" required>
+                        <option value="">Select Category</option>
+                        <option value="Needs">Needs (Essential Income)</option>
+                        <option value="Wants">Wants (Discretionary Income)</option>
+                        <option value="Savings & Debt">Savings & Debt (Investment/Debt Income)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Sub-Category</label>
+                    <input type="text" id="income-sub-category" placeholder="e.g., Primary Job, Side Hustle">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" id="income-description">
+                </div>
+                <div class="form-group">
+                    <label>Amount</label>
+                    <input type="number" step="0.01" id="income-amount" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+    </div>
+    <div id="expense-modal" class="modal"><div class="modal-content glass"><div class="modal-header"><h2 class="modal-title">Add Expense</h2><button class="close" onclick="closeModal('expense-modal')">&times;</button></div><form onsubmit="addExpense(event)"><div class="form-group"><label>Date</label><input type="date" id="expense-date" required></div><div class="form-group"><label>Allocation Category</label><select id="expense-allocation-category" required><option value="">Select Allocation</option><option value="Needs">Needs</option><option value="Wants">Wants</option><option value="Savings & Debt">Savings & Debt</option></select></div><div class="form-group"><label>Sub-Category</label><select id="expense-category" required></select></div><div class="form-group"><label>Description</label><input type="text" id="expense-description" oninput="guessCategory()" required></div><div class="form-group"><label>Amount</label><input type="number" step="0.01" id="expense-amount" required></div><button type="submit" class="btn btn-primary">Add</button></form></div></div>
+    <div id="debt-modal" class="modal"><div class="modal-content glass"><div class="modal-header"><h2 class="modal-title">Add Debt</h2><button class="close" onclick="closeModal('debt-modal')">&times;</button></div><form onsubmit="addDebt(event)"><div class="form-group"><label>Owed To</label><input type="text" id="debt-creditor" required></div><div class="form-group"><label>Description</label><input type="text" id="debt-description" required></div><div class="form-group"><label>Original Amount</label><input type="number" step="0.01" id="debt-original" required></div><button type="submit" class="btn btn-primary">Add</button></form></div></div>
+    <div id="payment-modal" class="modal"><div class="modal-content glass"><div class="modal-header"><h2 class="modal-title">Add Payment to Debt</h2><button class="close" onclick="closeModal('payment-modal')">&times;</button></div><form onsubmit="addPayment(event)"><div class="form-group"><label>Payment Amount</label><input type="number" step="0.01" id="payment-amount" required></div><button type="submit" class="btn btn-primary">Submit</button></form></div></div>
+    <div id="fixed-expense-modal" class="modal"><div class="modal-content glass"><div class="modal-header"><h2 class="modal-title">Add Fixed Expense</h2><button class="close" onclick="closeModal('fixed-expense-modal')">&times;</button></div><form onsubmit="addFixedExpense(event)"><div class="form-group"><label>Due Date (Day)</label><input type="number" min="1" max="31" id="fixed-due-date" required></div><div class="form-group"><label>Description</label><input type="text" id="fixed-description" required></div><div class="form-group"><label>Amount</label><input type="number" step="0.01" id="fixed-amount" required></div><button type="submit" class="btn btn-primary">Add</button></form></div></div>
+    <div id="goal-modal" class="modal"><div class="modal-content glass"><div class="modal-header"><h2 class="modal-title">Add Goal</h2><button class="close" onclick="closeModal('goal-modal')">&times;</button></div><form onsubmit="addGoal(event)"><div class="form-group"><label>Goal Title</label><input type="text" id="goal-title" required></div><div class="form-group"><label>Target Amount</label><input type="number" step="0.01" id="goal-amount" required></div><button type="submit" class="btn btn-primary">Add</button></form></div></div>
+    <div id="savings-modal" class="modal"><div class="modal-content glass"><div class="modal-header"><h2 class="modal-title">Add Savings to Goal</h2><button class="close" onclick="closeModal('savings-modal')">&times;</button></div><form onsubmit="addSavingsToGoal(event)"><div class="form-group"><label>Amount</label><input type="number" step="0.01" id="savings-amount" required><small id="available-savings-msg" style="display: block; margin-top: 5px;"></small></div><button type="submit" class="btn btn-primary">Add Savings</button></form></div></div>
+    <div id="edit-modal" class="modal"><div class="modal-content glass"><div class="modal-header"><h2 class="modal-title" id="edit-modal-title">Edit Item</h2><button class="close" onclick="closeModal('edit-modal')">&times;</button></div><form onsubmit="saveEdit(event)" id="edit-form"></form></div></div>
+
+    <div id="action-menu" class="action-menu">
+        <button id="action-menu-pay" class="action-menu-item">Pay</button>
+        <button id="action-menu-edit" class="action-menu-item">Edit</button>
+        <button id="action-menu-hide" class="action-menu-item">Hide</button>
+        <button id="action-menu-delete" class="action-menu-item">Delete</button>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+
+    <script>
+      // Service worker registration remains here
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').then(registration => {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }, err => {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+        });
+      }
+    </script>
+</body>
+</html>

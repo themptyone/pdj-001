@@ -1,0 +1,127 @@
+<h1 class="page-title">Dashboard</h1>
+
+<div class="time-filter-controls">
+    <button class="btn" onclick="setTimeFilter('14days')">14 Days</button>
+    <button class="btn" onclick="setTimeFilter('month')">This Month</button>
+    <button class="btn" onclick="setTimeFilter('30days')">30 Days</button>
+    <button class="btn" onclick="setTimeFilter('all')">All Time</button>
+</div>
+
+<div class="dashboard-grid">
+    <!-- Income & Allocation Section -->
+    <div class="dashboard-section glass">
+        <h2 class="section-title">Income & Allocation</h2>
+        <div class="total-income-display glass" id="total-income-display">Total Income (Selected Period): $0.00</div>
+        
+        <div class="allocation-grid">
+            <div class="allocation-card glass">
+                <div class="allocation-header">
+                    <label>Needs</label>
+                    <input type="number" id="needs-percent" min="0" max="100" value="50">%
+                </div>
+                <div class="allocation-amount" id="needs-amount">$0.00</div>
+            </div>
+            
+            <div class="allocation-card glass">
+                <div class="allocation-header">
+                    <label>Wants</label>
+                    <input type="number" id="wants-percent" min="0" max="100" value="30">%
+                </div>
+                <div class="allocation-amount" id="wants-amount">$0.00</div>
+            </div>
+            
+            <div class="allocation-card glass">
+                <div class="allocation-header">
+                    <label>Savings & Debt</label>
+                    <input type="number" id="savings-percent" min="0" max="100" value="20">%
+                </div>
+                <div class="allocation-amount" id="savings-amount">$0.00</div>
+            </div>
+        </div>
+        
+        <div class="total-allocated glass" id="total-allocated-percent">Total Allocated: 100%</div>
+    </div>
+
+    <!-- Quick Actions Section -->
+    <div class="dashboard-section glass">
+        <h2 class="section-title">Quick Actions</h2>
+        <div class="quick-actions-grid">
+            <button class="btn btn-primary action-btn-compact" onclick="openModal('income-modal')">
+                <span class="btn-icon">💰</span>
+                <span class="btn-text">Add Income</span>
+            </button>
+            <button class="btn btn-primary action-btn-compact" onclick="openModal('expense-modal')">
+                <span class="btn-icon">💸</span>
+                <span class="btn-text">Add Expense</span>
+            </button>
+            <button class="btn btn-primary action-btn-compact" onclick="openModal('debt-modal')">
+                <span class="btn-icon">🏦</span>
+                <span class="btn-text">Add Debt</span>
+            </button>
+            <button class="btn btn-primary action-btn-compact" onclick="openModal('fixed-expense-modal')">
+                <span class="btn-icon">📅</span>
+                <span class="btn-text">Add Fixed Expense</span>
+            </button>
+            <button class="btn btn-primary action-btn-compact" onclick="openModal('goal-modal')">
+                <span class="btn-icon">🎯</span>
+                <span class="btn-text">Add Goal</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Expenses Log -->
+<div class="dashboard-section glass">
+    <h2 class="section-title">Recent Expenses</h2>
+    <div class="expense-log-container">
+        <div class="expense-log-header">
+            <h3>Latest Transactions</h3>
+            <button class="btn btn-primary btn-sm" onclick="showPage('income')">View All</button>
+        </div>
+        <div class="expense-log" id="recent-expenses-log">
+            <!-- Populated by JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Allocation Summary Table -->
+<div class="dashboard-section glass">
+    <h2 class="section-title">Allocation Summary</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Allocated</th>
+                    <th>Spent</th>
+                    <th>Remaining</th>
+                </tr>
+            </thead>
+            <tbody id="allocation-summary-table">
+                <!-- Populated by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Category Summary with Chart Toggle -->
+<div class="dashboard-section glass">
+    <h2 class="section-title">Category Summary</h2>
+    <div class="chart-toggle-container">
+        <label class="toggle-switch">
+            <input type="checkbox" id="chart-toggle" onchange="togglePieChart()">
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">Show Pie Chart</span>
+        </label>
+    </div>
+    
+    <div id="category-summary-grid" class="category-grid">
+        <!-- Populated by JavaScript -->
+    </div>
+    
+    <div id="pieChartContainer" style="display: none;">
+        <div class="chart-container">
+            <canvas id="expensePieChart"></canvas>
+        </div>
+    </div>
+</div>

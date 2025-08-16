@@ -1,0 +1,72 @@
+<h1 class="page-title">Settings & Customization</h1>
+
+<div class="settings-grid">
+    <div class="setting-item glass">
+        <h3 class="setting-label">Theme Selection</h3>
+        <div class="setting-group">
+            <label for="theme-selector">Choose Theme:</label>
+            <select id="theme-selector" onchange="changeTheme(this.value)">
+                <option value="Liquid Glass">Liquid Glass</option>
+                <option value="Dark Mode">Dark Mode</option>
+                <option value="Light Mode">Light Mode</option>
+                <option value="Ocean Blue">Ocean Blue</option>
+                <option value="Sunset Orange">Sunset Orange</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="setting-item glass">
+        <h3 class="setting-label">Color Customization</h3>
+        <div class="setting-group">
+            <label for="text-color-title">Title Color:</label>
+            <input type="color" id="text-color-title" value="#ffffff" onchange="updateColors()">
+            
+            <label for="text-color-primary">Primary Text Color:</label>
+            <input type="color" id="text-color-primary" value="#ffffff" onchange="updateColors()">
+            
+            <label for="accent-color-positive">Positive Accent:</label>
+            <input type="color" id="accent-color-positive" value="#51cf66" onchange="updateColors()">
+            
+            <label for="accent-color-negative">Negative Accent:</label>
+            <input type="color" id="accent-color-negative" value="#ff6b6b" onchange="updateColors()">
+        </div>
+    </div>
+
+    <div class="setting-item glass">
+        <h3 class="setting-label">UI Preferences</h3>
+        <div class="setting-group">
+            <label for="ui-scale">UI Scale: <span id="ui-scale-value">100%</span></label>
+            <input type="range" id="ui-scale" min="0.5" max="1.5" step="0.1" value="1" onchange="updateUIScale(this.value)">
+            
+            <label for="border-radius">Border Radius: <span id="border-radius-value">20px</span></label>
+            <input type="range" id="border-radius" min="5" max="50" step="5" value="20" onchange="updateBorderRadius(this.value)">
+            
+            <label for="animation-speed">Animation Speed: <span id="animation-speed-value">0.5s</span></label>
+            <input type="range" id="animation-speed" min="0.1" max="2" step="0.1" value="0.5" onchange="updateAnimationSpeed(this.value)">
+        </div>
+    </div>
+
+    <div class="setting-item glass">
+        <h3 class="setting-label">Category Management</h3>
+        <div class="setting-group">
+            <label for="new-category-name">Add New Category:</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="new-category-name" placeholder="Category name">
+                <button class="btn btn-primary" onclick="addCategory()">Add</button>
+            </div>
+            
+            <label>Current Categories:</label>
+            <ul id="category-manager-list">
+                <!-- Populated by JavaScript -->
+            </ul>
+        </div>
+    </div>
+
+    <div class="setting-item glass">
+        <h3 class="setting-label">Data Management</h3>
+        <div class="setting-group">
+            <button class="btn btn-warning" onclick="exportData()">Export Data</button>
+            <button class="btn btn-danger" onclick="resetAllData()">Reset All Data</button>
+        </div>
+    </div>
+</div>

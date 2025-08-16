@@ -1,0 +1,34 @@
+<h1 class="page-title">Fixed Expenses Management</h1>
+
+<div class="card glass">
+    <h2 class="card-title">Add New Fixed Expense</h2>
+    <button class="btn btn-primary btn-add" onclick="openModal('fixed-expense-modal')">Add Fixed Expense</button>
+</div>
+
+<div class="card glass">
+    <h2 class="card-title">Fixed Expenses</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Due Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="fixed-expense-table">
+                <!-- Populated by JavaScript -->
+            </tbody>
+            <tfoot id="fixed-expense-table-foot">
+                <!-- Populated by JavaScript -->
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="card glass">
+    <h2 class="card-title">Data Management</h2>
+    <button class="btn btn-danger" onclick="clearDataSection('fixedExpenses')">Clear All Fixed Expenses Data</button>
+</div>
